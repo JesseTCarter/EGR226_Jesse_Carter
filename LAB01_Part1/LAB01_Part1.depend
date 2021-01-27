@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1611718090 source:c:\users\night\documents\cbps\lab01_part1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+
+1611677155 source:c:\users\night\documents\codeblocks\lab01_part1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+

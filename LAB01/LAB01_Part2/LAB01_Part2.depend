@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1611715880 source:c:\users\night\documents\cbps\lab01_part2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"stats_lib.h"
+
+1611501254 c:\users\night\documents\cbps\lab01_part2\stats_lib.h
+
+1611717802 source:c:\users\night\documents\cbps\lab01_part2\stats_lib.c
+	"stats_lib.h"
+	<math.h>
+
+1611715878 source:c:\users\night\documents\codeblocks\lab01_part2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"stats_lib.h"
+
+1611501254 c:\users\night\documents\codeblocks\lab01_part2\stats_lib.h
+
+1611717800 source:c:\users\night\documents\codeblocks\lab01_part2\stats_lib.c
+	"stats_lib.h"
+	<math.h>
+
