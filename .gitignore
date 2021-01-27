@@ -50,3 +50,16 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+#EGR226_Stuff
+**/Debug
+**/Release
+**/Debug/*
+**/Release/*
+**/.xdchelp
+**/.config
+**/.config/*
+**/.launches
+**/.launches/*
+**/targetConfigs
+**/targetConfigs/*
