@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-//Defintion of struct book.
+    //Defintion of struct book.
 
 struct Book
 
@@ -16,25 +16,52 @@ struct Book
 
 };
 
+/*                 | print_book function |
+
+ Brief:     This function prints the book information grabbed
+            and stored from the other functions outside of main,
+            main will call the corresponding functions per the user
+            input, store them, and call them.
+
+ parameters: struct Book obj
+
+ return: N/A
+
+*/
+
 void print_book(struct Book obj)
 
 {
 
 	printf("\n===================== BOOK INFO =======================\n");
-	printf("|Title:  %s\n", obj.title); //Title
-	printf("|Author: %s\n", obj.author_name); //Author name
-	printf("|ISBN:   %s\n", obj.ISBN); //ISBN
-	printf("|Pages:  %d\n", obj.pages); //Number of pages (convert to int)
-	printf("|Year:   %d\n", obj.year_published); //Year published (convert to int)
+	printf("|Title:  %s\n", obj.title);    //Title
+	printf("|Author: %s\n", obj.author_name);   //Author name
+	printf("|ISBN:   %s\n", obj.ISBN);    //ISBN
+	printf("|Pages:  %d\n", obj.pages);    //Number of pages (convert to int)
+	printf("|Year:   %d\n", obj.year_published);    //Year published (convert to int)
 	printf("===================== END OF BOOK INFO ================\n");
 
 }
 
-//This function constructs the Book object by itself and then returns the constructed object
-struct Book HelperConstructBook(char * title, char * author, char * isbn, char * pages, char * year_published)
+
+/*                 | HelperConstructBook function |
+
+ Brief:     HelperConstructBook will build the book object from
+            the stored information and return the corresponding
+            completed structure object.
+
+ parameters: char * title, char * author, char * isbn, char * pages, char * year_published
+
+ return: struct
+
+*/
+
+
+struct Book HelperConstructBook(char * title, char * author, char * isbn, char * pages, char * year_published)  //This function constructs the Book object by itself and then returns the constructed object
 
 {
 	//Convert pages and year published to int first.
+
 	int pagecount = 0;
 	int year = atoi(year_published);
 
@@ -42,7 +69,7 @@ struct Book HelperConstructBook(char * title, char * author, char * isbn, char *
 
 	{
 
-		pagecount = -99; //Represents that the information is not available.
+		pagecount = -99;    //Represents that the information is not available.
 
 	}
 
@@ -54,26 +81,44 @@ struct Book HelperConstructBook(char * title, char * author, char * isbn, char *
 
 	}
 
-	struct Book to_return = { .pages = pagecount, .year_published = year }; //Assign everything that is not string in this manner.
+	struct Book to_return = { .pages = pagecount, .year_published = year };    //Assign everything that is not string in this manner.
+
 	//The character/string stuff will have to be 'copied' to one another. We'll use a built in strcpy function to achieve this.
+
 	strcpy(to_return.title, title);
 	strcpy(to_return.author_name, author);
 	strcpy(to_return.ISBN, isbn);
+
 	//HelperPrint(to_return);
 
 	return to_return;
 
 }
 
+/*                 | parse_file function |
+
+ Brief:     parse_file will search for and open the BookList.csv
+            if the file is found, it will open and read the separated
+            values until the end of the file, Then it will take the
+            values and tokenize the strings so that they can be copied
+            in other functions. If the file is not found, the program will
+            close.
+
+ parameters: char* fileName, struct Book * books, int * activeIndex
+
+ return: struct
+
+*/
+
 struct Book * parse_file(char* fileName, struct Book * books, int * activeIndex)
 
 {
 
-	int index = 0; //Active index for books array
+	int index = 0;     //Active index for books array
 
 	FILE* filereader;
 
-	filereader = fopen(fileName, "r"); //Open the file here for reading
+	filereader = fopen(fileName, "r");     //Open the file here for reading
 
 	if (filereader)
 
@@ -81,14 +126,17 @@ struct Book * parse_file(char* fileName, struct Book * books, int * activeIndex)
 
 		char text[999];
 		int count = 0;
-		while (fgets(text, 999, filereader) != NULL) //This will read the record line by line until end of file is reached.
+		while (fgets(text, 999, filereader) != NULL)    //This will read the record line by line until end of file is reached.
 
 		{
 
 			char* token;
+
 			//We now have to tokenize this string. We know the format: Title, Author Name, ISBN, Number of pages, Year published
+
 			//printf("%s", text); //Full line
-			token = strtok(text, ",");//Title
+
+			token = strtok(text, ",");    //Title
 
 			char* author = strtok(NULL, ",");
 			char* isbn = strtok(NULL, ",");
@@ -117,6 +165,19 @@ struct Book * parse_file(char* fileName, struct Book * books, int * activeIndex)
 
 }
 
+/*                 | search_title function |
+
+ Brief:     search_title will check the search term input
+            by the user for a title query against the stored strings and will
+            return any of the strings that are found within the
+            searched term.
+
+ parameters: struct Book * books, int total_books, char * searchterm
+
+ return: int
+
+*/
+
 int search_title(struct Book * books, int total_books, char * searchterm)
 
 {
@@ -128,7 +189,7 @@ int search_title(struct Book * books, int total_books, char * searchterm)
 
 	{
 
-	if (strstr(books[i].title, searchterm) != NULL) //Checks if the title contains the search term
+	if (strstr(books[i].title, searchterm) != NULL)    //Checks if the title contains the search term
 
 		{
 
@@ -145,6 +206,19 @@ int search_title(struct Book * books, int total_books, char * searchterm)
 	return found;
 
 }
+
+/*                 | search_author function |
+
+ Brief:     search_author will check the search term input
+            by the user for an author query against the stored strings and will
+            return any of the strings that are found within the
+            searched term.
+
+ parameters: struct Book* books, int total_books, char* searchterm
+
+ return: int
+
+*/
 
 int search_author(struct Book* books, int total_books, char* searchterm)
 
@@ -175,6 +249,19 @@ int search_author(struct Book* books, int total_books, char* searchterm)
 
 }
 
+/*                 | search_ISBN function |
+
+ Brief:     search_ISBN will check the search term input
+            by the user for an ISBN query against the stored strings and will
+            return any of the strings that are found within the
+            searched term.
+
+ parameters: struct Book* books, int total_books, char* searchterm
+
+ return: int
+
+*/
+
 int search_ISBN(struct Book* books, int total_books, char* searchterm)
 
 {
@@ -202,6 +289,26 @@ int search_ISBN(struct Book* books, int total_books, char* searchterm)
 	return found;
 
 }
+
+/*                 | main function |
+
+ Brief:     Main will store all of the values from the BookList
+            into allocated memory and keep them there. It then
+            prompts the user to search by 1 of 3 search terms.
+            If an improper search term is input, an error statement
+            will print. Otherwise, it will call by the corresponding
+            search criteria, that specific search function will look for
+            strings that match the search term, build the book object using
+            the book structure and return that information through
+            the print_book function. The program will continue this ask and search
+            loop, until the user chooses to force quit the program, or quit
+            by entering the integer value "-99".
+
+ parameters: N/A
+
+ return: int
+
+*/
 
 int main()
 
@@ -244,7 +351,7 @@ int main()
 
 			{
 
-				getchar(); //get the extra '\n' if we press enter
+				getchar();     //get the extra '\n' if we press enter
 
 				char searchTerm[999];
 
@@ -252,7 +359,7 @@ int main()
 
 				gets(searchTerm);
 
-				int retvalue = 0; //return value from the functions
+				int retvalue = 0;    //return value from the functions
 
 				switch (choice)
 
@@ -260,17 +367,17 @@ int main()
 
                     case 0:
                         retvalue = search_title(books, total_books, searchTerm);
-                        choice = 4;
+                        choice = 4;    //for error checking
 					break;
 
                     case 1:
                         retvalue = search_author(books, total_books, searchTerm);
-                        choice = 4;
+                        choice = 4;    //for error checking
 					break;
 
                     case 2:
                         retvalue = search_ISBN(books, total_books, searchTerm);
-                        choice = 4;
+                        choice = 4;    //for error checking
 					break;
 
 				}
