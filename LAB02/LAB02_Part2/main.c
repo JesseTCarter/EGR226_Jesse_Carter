@@ -26,7 +26,7 @@ void print_book(struct Book obj)
 	printf("|ISBN:   %s\n", obj.ISBN); //ISBN
 	printf("|Pages:  %d\n", obj.pages); //Number of pages (convert to int)
 	printf("|Year:   %d\n", obj.year_published); //Year published (convert to int)
-	printf("===================== END OF BOOK INFO ================\n\n");
+	printf("===================== END OF BOOK INFO ================\n");
 
 }
 
@@ -200,6 +200,7 @@ int search_ISBN(struct Book* books, int total_books, char* searchterm)
 	}
 
 	return found;
+
 }
 
 int main()
@@ -215,13 +216,13 @@ int main()
 
 	//printf("Total books are %d", total_books);
 
-	int choice = 0;
+	int choice = 4;
 
 	while (choice != -99)
 
 	{
 
-        printf("What would you like to search by? [0] Title, [1] Author, [2] ISBN. \nOr enter ");
+        printf("\nWhat would you like to search by? [0] Title, [1] Author, [2] ISBN. \nOr enter ");
         printf("[-99] to exit the program.\n");
 
 		int result = scanf("%d", &choice);
@@ -230,7 +231,7 @@ int main()
 
 		{
 
-			printf("Wrong value type entered.....\n");
+			printf("ERROR: Invalid Input\n");
 
 			return;
 
@@ -247,7 +248,7 @@ int main()
 
 				char searchTerm[999];
 
-				printf("\nEnter you search criteria\n");
+				printf("\nEnter you search criteria:\n");
 
 				gets(searchTerm);
 
@@ -259,14 +260,17 @@ int main()
 
                     case 0:
                         retvalue = search_title(books, total_books, searchTerm);
+                        choice = 4;
 					break;
 
                     case 1:
                         retvalue = search_author(books, total_books, searchTerm);
+                        choice = 4;
 					break;
 
                     case 2:
                         retvalue = search_ISBN(books, total_books, searchTerm);
+                        choice = 4;
 					break;
 
 				}
@@ -275,7 +279,7 @@ int main()
 
 				{
 
-					printf("PROMPT: Entered query could not be found!\n");
+					printf("\nEntered query could not be found!\n");
 
 				}
 
@@ -285,7 +289,7 @@ int main()
 
 			{
 
-				printf("Please enter a value between 0 and 2\n\n");
+				printf("\n<Please enter a value between 0 and 2>\n\n");
 				fflush(stdin);
 
 			}
