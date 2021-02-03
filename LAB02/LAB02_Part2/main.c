@@ -1,3 +1,26 @@
+/*
+
+Name:	        Jesse Carter
+
+Course:	        EGR 226-902
+
+Date:	        02/03/2021
+
+Project:	    LAB02
+
+File:	        mainPart2.c
+
+Professor:	    Trevor Ekin
+
+Description:    This is a looping program that will take a user input search criteria
+                and match it against a file called "BookList.csv" that was read into
+                a memory array index, whatever the user inputs per the search criteria
+                the program will build the book using a structure called book and
+                tokenized strings. The books are then prints in the console window
+                for the user to view.
+
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
