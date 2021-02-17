@@ -6,7 +6,7 @@ Course:         EGR 226-902
 
 Date:           02/17/2021
 
-Project:        LAB04_Part1
+Project:        LAB04_Part2
 
 File:           main.c
 
@@ -22,15 +22,15 @@ Description:    A program that checks if a button is pressed, if pressed and hel
 
 #include "msp.h"
 
-void pin_inst(void);                    //Prototype function for pin initialization.
-int DebounceSwitch1(void);              //Prototype function for checking for De-bounce.
-void delay(int);
+void pin_inst(void);        //Prototype function for pin initialization.
+int DebounceSwitch1(void);      //Prototype function for checking for De-bounce.
+void delay(int);        //Prototype function for to pass a delay time in milliseconds.
 
 void main(void)
 
     {
 
-    WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;             //Stop watchdog timer.
+    WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;     //Stop watchdog timer.
 
     pin_inst();
 
@@ -55,33 +55,45 @@ void main(void)
 
 }
 
+/*
+                       | pin_inst function |
+
+        Brief: The pin_inst function initializes the required
+               ports and pins on the MSP432.
+
+        parameters: N/A
+
+        return: N/A
+
+*/
+
 void pin_inst(void)
 
 {
 
-    P1->SEL1 &= ~BIT1;                                          //Configure P1.1 as input/output.
+    P1->SEL1 &= ~BIT1;      //Configure P1.1 as input/output.
     P1->SEL0 &= ~BIT1;
 
-    P1->DIR &= ~BIT1;                                           //P1.1 set as input.
+    P1->DIR &= ~BIT1;       //P1.1 set as input.
 
-    P1->REN |= BIT1;                                            //P1.1 pull resistor enabled.
+    P1->REN |= BIT1;        //P1.1 pull resistor enabled.
 
-    P1->OUT |= BIT1;                                            //Pull up/down is selected by P1 -> OUT.
+    P1->OUT |= BIT1;        //Pull up/down is selected by P1 -> OUT.
 
-    P2->SEL1 &= ~BIT0;                                          //Configure P2.0 as simple input/output.
+    P2->SEL1 &= ~BIT0;      //Configure P2.0 as simple input/output.
     P2->SEL0 &= ~BIT0;
 
-    P2->DIR |= BIT0;                                            //P2.0 set as output pin.
+    P2->DIR |= BIT0;        //P2.0 set as output pin.
 
-    P2->SEL1 &= ~BIT1;                                          //Configure P2.1 as simple input/output.
+    P2->SEL1 &= ~BIT1;      //Configure P2.1 as simple input/output.
     P2->SEL0 &= ~BIT1;
 
-    P2->DIR |= BIT1;                                            //P2.1 set as output pin.
+    P2->DIR |= BIT1;        //P2.1 set as output pin.
 
-    P2->SEL1 &= ~BIT2;                                        //Configure P2.2 as input/output.
+    P2->SEL1 &= ~BIT2;      //Configure P2.2 as input/output.
     P2->SEL0 &= ~BIT2;
 
-    P2->DIR |= BIT2;                                          //P2.2 set as output pin.
+    P2->DIR |= BIT2;        //P2.2 set as output pin.
 
     P2->OUT &= BIT0;
     P2->OUT &= BIT1;
@@ -89,7 +101,19 @@ void pin_inst(void)
 
 }
 
-void delay(int time)                                       //Delay function to pass millisecond delays as a function argument.
+/*
+                       | delay function |
+
+        Brief: The delay function passes millisecond delays
+               as a function argument
+
+        parameters: int time
+
+        return: N/A
+
+*/
+
+void delay(int time)        //Delay function to pass millisecond delays as a function argument.
 
 {
 
@@ -106,20 +130,35 @@ void delay(int time)                                       //Delay function to p
 
 }
 
+/*
+                       | DebounceSwitch1 function |
+
+        Brief: The DebounceSwitch1 function sets a variable called
+               "pin_Value" to 0, and a variable called "time" to 400.
+               An if loop checks if an on-board button is pressed, if
+               the button is pressed and held down, the on-board LED's
+               will sequence through the colors red, green, and blue.
+
+        parameters: N/A
+
+        return: int
+
+*/
+
 int DebounceSwitch1(void)
 
 {
 
-    int pin_Value = 0;                                      //Initialize variable as low.
+    int pin_Value = 0;      //Initialize variable as low.
     int time = 400;
 
-    if((P1->IN & BIT1) == 0)                                //Check if button is pressed.
+    if((P1->IN & BIT1) == 0)        //Check if button is pressed.
 
     {
 
-        delay(time);                              //Pause for  milliseconds for switch bounce.
+        delay(time);        //Pause for  milliseconds for switch bounce.
 
-        if((P1->IN & BIT1) == 0)                  //If button is not pressed, variable is low, else if the button is pressed, variable high.
+        if((P1->IN & BIT1) == 0)        //If button is not pressed, variable is low, else if the button is pressed, variable high.
 
         {
 
@@ -128,6 +167,6 @@ int DebounceSwitch1(void)
 
     }
 
-    return pin_Value;                                       //Return 1 if pressed, 0 if not pressed.
+    return pin_Value;       //Return 1 if pressed, 0 if not pressed.
 
 }
