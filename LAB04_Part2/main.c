@@ -156,7 +156,7 @@ int DebounceSwitch1(void)
 
     {
 
-        delay(time);        //Pause for  milliseconds for switch bounce.
+        delay(time);        //Calls the function "void delay(int time)" to wait a certain amount of time in milliseconds for the switch bounce.
 
         if((P1->IN & BIT1) == 0)        //If button is not pressed, variable is low, else if the button is pressed, variable high.
 

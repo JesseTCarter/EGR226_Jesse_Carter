@@ -22,7 +22,7 @@ Description:    A program that checks if a button is pressed, if pressed LED tur
 #include "msp.h"
 
 void pin_inst(void);        //Prototype function for pin initialization.
-int DebounceSwitch1(void);      //Prototype function for checking for De-bounce.
+int DebounceSwitch1(void);      //Prototype function for checking the de-bounce.
 void delay(int);        //Prototype function for to pass a delay time in milliseconds.
 
 void main(void)
@@ -155,7 +155,7 @@ int DebounceSwitch1(void)
 
     {
 
-        delay(time);        //Pause for  milliseconds for switch bounce.
+        delay(time);        //Calls the function "void delay(int time)" to wait a certain amount of time in milliseconds for the switch bounce.
 
         if((P1->IN & BIT1) == 0)        //If button is not pressed, variable is low, else if the button is pressed, variable high.
 
