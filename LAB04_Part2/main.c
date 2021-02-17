@@ -1,3 +1,25 @@
+/*
+
+Name:           Jesse Carter
+
+Course:         EGR 226-902
+
+Date:           02/17/2021
+
+Project:        LAB04_Part1
+
+File:           main.c
+
+Professor:      Trevor Ekin
+
+Description:    A program that checks if a button is pressed, if pressed and held
+                LED turns on and cycles through three different led colors, red, green, blue.
+                Incorporates a de-bounce switch function to solve for the switch bounce,
+                so that the button presses are accurate with changing the LED colors, so
+                that no interference accidentally changes the LED color.
+
+*/
+
 #include "msp.h"
 
 void pin_inst(void);                    //Prototype function for pin initialization.
@@ -28,9 +50,6 @@ void main(void)
             color++;
 
         }
-
-
-
 
     }
 
