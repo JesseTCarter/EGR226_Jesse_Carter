@@ -241,7 +241,14 @@ void Print_keys(void)
         printf("*\n");
 
     else if (count == 11)
+
+    {
+
         printf("0\n");
+
+        count = 0;
+
+    }
 
     else if (count == 12)
         printf("#\n");

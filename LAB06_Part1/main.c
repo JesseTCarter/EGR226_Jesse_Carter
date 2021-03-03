@@ -102,7 +102,7 @@ void Keypad_init(void)
 
     P4->DIR &=~(BIT0| BIT1 | BIT2 | BIT3);      //Pull resistor enabled for rows 0, 1, 2, and 3, on pins P4.0, P4.1, P4.2, and P4.3.
     P4->REN |=(BIT0 | BIT1 | BIT2 | BIT3);      //Configuring rows with pull-up resistors, P4.0, P4.1, P4.2, and P4.3.
-    P4->OUT |=(BIT0 | BIT1 | BIT2 | BIT3);      //Setting the keypad columns as inputs on P4.6, P4.5, and P4.4.
+    P4->OUT |=(BIT0 | BIT1 | BIT2 | BIT3);      //Setting the keypad columns as inputs on P4.4, P4.5, and P4.6.
     P4->DIR &=~(BIT4 | BIT5| BIT6);
 
 }
@@ -112,10 +112,11 @@ void Keypad_init(void)
 
         Brief: The Keypad_read function sets the columns on the keypad as
                inputs, but column 3 is set to low, it reads the rows on
-               the keypad and if one of the rows come back as low, a key
-               is pressed, if the corresponding row value that was pressed
-               matches one of the if statements row values, the variable count
-               will equal that key in the row, and returns a value of 1.
+               the keypad and if one of the bits on one of the rows come
+               back as low, a key is pressed, if the corresponding row value
+               that was pressed matches one of the if statements row values,
+               the variable count will equal that key in the row, and returns
+               a value of 1.
 
         parameters: N/A
 
@@ -129,7 +130,7 @@ uint8_t Keypad_read(void)
 
     uint8_t col, row;
 
-    for(col = 0; col <3; col++)
+    for(col = 0; col < 3; col++)
 
     {
 
