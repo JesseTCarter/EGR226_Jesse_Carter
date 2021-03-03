@@ -62,7 +62,7 @@ void main(void)
 
             if(color >= 7) color = 4;       //Sets color back to 4.
 
-            SysTick_delay(1000);        //SisTick delay for 1 second.
+            SysTick_delay(1000);        //SysTick delay for 1 second.
 
         }
 
