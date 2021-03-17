@@ -35,7 +35,12 @@ void scroll(void);      //Prototype function for scrolling characters displayed 
 /*
                        | main function |
 
-        Brief:
+        Brief: Main calls the LCD_init function that initializes the
+               LCD display and then calls the commandWrite function
+               to clear the LCD screen, then a short delay is called
+               and using the scroll function, data is sent to the
+               LCD from DDRAM that prints the phrase "LABORATORY OVER"
+               and then scrolls the text from right to left.
 
         parameters: N/A
 
@@ -46,6 +51,8 @@ void scroll(void);      //Prototype function for scrolling characters displayed 
 void main(void)
 
 {
+
+    WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;     //Stop watchdog timer.
 
     LCD_init();
 
@@ -60,7 +67,9 @@ void main(void)
 /*
                        | pushNibble function |
 
-        Brief:
+        Brief: pushNibble clears the lower and upper nibbles, then
+               pushes 1 nibble onto the data pins and pulses the
+               enable pin.
 
         parameters: unsigned char data, unsigned char control
 
@@ -91,7 +100,8 @@ void pushNibble(unsigned char data, unsigned char control)
 /*
                        | delay_ms function |
 
-        Brief: delay in milliseconds when system clock is at 3MHz.
+        Brief: delay_ms runs the delay in milliseconds when
+               system clock is at 3MHz.
 
         parameters: int n
 
@@ -114,7 +124,8 @@ void delay_ms(int n)
 /*
                        | commandWrite function |
 
-        Brief:
+        Brief: commandWrite writes one byte of command by calling
+               the pushNibble function with the command parameter.
 
         parameters: unsigned char command
 
@@ -132,18 +143,19 @@ void commandWrite(unsigned char command)
 
     if (command < 4)
 
-        delay_ms(4);        //Commands 1 and 2 need up to 1.64 ms.
+        delay_ms(4);        //Commands 1 and 2 need up to 1.64 milliseconds.
 
     else
 
-        delay_ms(1);        //All others 40 us.
+        delay_ms(1);        //All others 40 microseconds.
 
 }
 
 /*
                        | dataWrite function |
 
-        Brief:
+        Brief: Writing one byte of data by calling the pushNibble
+               function with the data parameter.
 
         parameters: unsigned char data
 
@@ -166,7 +178,7 @@ void dataWrite(unsigned char data)
 /*
                        | LCD_init function |
 
-        Brief:
+        Brief: The initialization sequence for the LCD.
 
         parameters: N/A
 
@@ -208,7 +220,11 @@ void LCD_init(void)
 /*
                        | scroll function |
 
-        Brief:
+        Brief: The scroll function, stores a 16 char string into a
+               2D array and calls dataWrite to print the string from
+               DDRAM onto the LCD, then the commandWrite function is
+               called (0x18) to scroll the string across the LCD from
+               right to left by one character every 1 second.
 
         parameters: N/A
 
@@ -219,8 +235,8 @@ void LCD_init(void)
 void scroll(void)
 
 {
+
     char message[17] = "LABORATORY OVER";
-//    char spaces[17] = "                ";
 
     uint8_t i, j;
 
