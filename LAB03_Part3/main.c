@@ -14,11 +14,15 @@ void main(void)
 
     //Temporary variable for loop-maintenance
 
+    int delay;
     int i;
+
+    delay = 40000;
+
     while(1)
 
     {
         P1->OUT ^= BIT0;        //Toggle LED status
-        for(i=20000; i>0; i--); //Crude delay
+        for(i=delay; i>0; i--); //Crude delay
     }
 }

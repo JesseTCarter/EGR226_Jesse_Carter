@@ -22,7 +22,7 @@ Description:    This program will initialize the LCD screen
 #include "msp.h"
 
 void LCD_init(void);        //Prototype function for LCD initialization.
-void delay_ms(int n);       ////Prototype function for delays in milliseconds.
+void delay_ms(int n);       //Prototype function for delays in milliseconds.
 void pushNibble(unsigned char data, unsigned char control);     //Prototype function that pushes 1 nibble onto the data pins and pulses the enable pin.
 void commandWrite(unsigned char command);       //Prototype function that writes one byte of command by calling the pushNibble function.
 void dataWrite(unsigned char data);     //Prototype function to write one byte of data by calling the pushNibble function.
@@ -60,9 +60,20 @@ void main(void)
 
     delay_ms(500);
 
+    commandWrite (0x0C); //cursor off
+
     scroll();
 
+    while(1)
+
+    {
+
+        ;
+
+    }
+
 }
+
 
 /*
                        | pushNibble function |
@@ -232,11 +243,11 @@ void LCD_init(void)
 
 */
 
-void scroll(void)
+    void scroll(void)
 
 {
 
-    char message[17] = "LABORATORY OVER";
+    char message[100] = "LABORATORY OVER";
 
     uint8_t i, j;
 
@@ -267,3 +278,4 @@ void scroll(void)
     }
 
 }
+

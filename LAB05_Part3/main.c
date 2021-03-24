@@ -181,7 +181,7 @@ void pin_init(void)
     P2->SEL0 &= ~BIT6;
     P2->DIR &= ~BIT6;       //P2.6 set as input.
     P2->REN |= BIT6;        //P2.6 pull resistor enabled.
-    P2->OUT |= BIT6;        //Pull up/down resister is selected by P2OUT.
+    P2->OUT |= BIT6;        //Pull up/down resistor is selected by P2OUT.
 
     P3->SEL0 &= ~BIT5;      //Configure P3.5 as input/output.
     P3->SEL1 &= ~BIT5;

@@ -12,17 +12,19 @@ File:           mainPart1.c
 
 Professor:      Trevor Ekin
 
-Description:    This program controls the DC motor using the SysTick Timer. The program
-                uses the SysTick timer to generate the PWM mode to create an analog signal
-                for controlling the speed of the motor.
+Description:    This program controls the DC motor using the SysTick Timer.
+                The SysTick timer is used to generate the PWM mode to create
+                an analog signal for controlling the speed of the motor.
 
 */
 
 #include "msp.h"
+#include <stdio.h>
+#include <math.h>
 
-void SysTick_Init (void);
-void delay_ms(uint16_t delay);
-void pin_init(void);
+void SysTick_init (void);       //Prototype function for SysTick initialization.
+void SysTick_delay(uint16_t delay);       //Prototype function for delays in milliseconds.
+void Pin_init(void);        //Prototype function for pin initialization.
 
 void main(void)
 
@@ -30,44 +32,80 @@ void main(void)
 
     WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;     //Stop watchdog timer.
 
-    SysTick_Init();
+    SysTick_init();     //SysTick_init function being called.
 
-    pin_init();
+    Pin_init();     //Pin_init function being called.
 
-    int i = 3000;
+    int i = 50;
+
+    int timeon;
+
+    int timeoff;
+
+    timeon = 25 * i * .01;
+
+    timeoff = 25 - timeon;
 
     while(1)
 
     {
 
-        P2OUT |= BIT4;     //Turns the motor on.
+        P2OUT |= BIT4;      //Turns motor on.
 
-        delay_ms(i);
+        SysTick_delay(timeon);
+
+        P2OUT &= ~BIT4;     //Turns motor off.
+
+        SysTick_delay(timeoff);
 
 
     }
 
 }
 
-void SysTick_Init(void)
+/*
+                       | SysTick_init function |
+
+        Brief: The SysTick_init function initializes the MSP432's
+               built-in internal timer for more accurate delays.
+
+        parameters: N/A
+
+        return: N/A
+
+*/
+
+void SysTick_init(void)
 
 {
 
     SysTick-> CTRL = 0;     //Disable SysTick during step.
 
-    SysTick-> LOAD = 0x00FFFFFF;        //Max count value.
+    SysTick-> LOAD = 0x00FFFFFF;        //Max reload value.
 
-    SysTick-> VAL = 0;      //Any write to current clears it.
+    SysTick-> VAL = 0;      //Any write to CVR clears it.
 
-    SysTick-> CTRL = 0x00000005;        //Enable SysTick, 3MHz, no interrupts
+    SysTick-> CTRL = 0x00000005;        //Enable SysTick, 3MHz, no interrupts.
 
 }
 
-void delay_ms(uint16_t delay)
+/*
+                       | SysTick_delay function |
+
+        Brief: SysTick_delay runs the delay in milliseconds when
+               system clock is at 3MHz.
+
+        parameters: uint16_t delay
+
+        return: N/A
+
+*/
+
+void SysTick_delay(uint16_t delay)
 
 {
 
-    SysTick-> LOAD = ((delay*3000)-1);      //Delay of 1ms per delay value.
+    SysTick-> LOAD = ((delay * 3000) - 1);      //Delay of 1ms per delay value.
 
     SysTick-> VAL = 0;      //Any write to CVR clears it.
 
@@ -75,7 +113,19 @@ void delay_ms(uint16_t delay)
 
 }
 
-void pin_init(void)
+/*
+                       | Pin_inst function |
+
+        Brief: The pin_inst function initializes the required
+               ports and pins on the MSP432 for the program.
+
+        parameters: N/A
+
+        return: N/A
+
+*/
+
+void Pin_init(void)
 
 {
 

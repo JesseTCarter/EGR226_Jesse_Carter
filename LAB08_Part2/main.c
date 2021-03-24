@@ -19,30 +19,47 @@ Description:    This program controls the DC motor using Timer_A. The program
 */
 
 #include "msp.h"
+#include <stdio.h>
+#include <math.h>
 
-void pin_init(void);
+void Pin_init(void);        //Prototype function for pin initialization.
+void TimerA_init(void);     //Prototype function for Timer_A# initialization.
 
 void main(void)
 {
 
     WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;     //Stop watchdog timer.
 
-    int i = 300000
+    int i = 3000;
 
-    pin_init();
+    Pin_init();     //Pin_init function being called.
+
+    TimerA_init();      //TimerA_init function being called.
 
     while(1)
 
     {
 
-     ;
+        TIMER_A0->CCR[1] = i;
 
     }
 
 
 }
 
-void pin_init(void)
+/*
+                       | Pin_inst function |
+
+        Brief: The pin_inst function initializes the required
+               ports and pins on the MSP432 for the program.
+
+        parameters: N/A
+
+        return: N/A
+
+*/
+
+void Pin_init(void)
 
 {
 
@@ -52,12 +69,30 @@ void pin_init(void)
 
     P2->DIR |= BIT4;
 
-    TIMER_A0->CCR[0] = 600000;
+}
+
+/*
+                       | TimerA_init function |
+
+        Brief: This function initializes the Timer_A#
+               peripherals to generate a PWM on a DC motor
+
+        parameters: N/A
+
+        return: N/A
+*/
+
+void TimerA_init(void)
+
+{
+
+    TIMER_A0->CCR[0] = 9375;
 
     TIMER_A0->CCTL[1] = TIMER_A_CCTLN_OUTMOD_7;
 
-    TIMER_A0->CCR[1] = i;       //Change value for motor speed
+    TIMER_A0->CCR[1] = 0;       //Changes the value of the motor speed using duty cycle.
 
     TIMER_A0->CTL = TIMER_A_CTL_SSEL__SMCLK| TIMER_A_CTL_MC__UP|TIMER_A_CTL_CLR;
 
 }
+
