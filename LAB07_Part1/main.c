@@ -20,7 +20,7 @@ Description:    This program will initialize the LCD screen
 #include "msp.h"
 
 void LCD_init(void);        //Prototype function for LCD initialization.
-void delay_ms(int n);       ////Prototype function for delays in milliseconds.
+void delay_ms(int n);       //Prototype function for delays in milliseconds.
 void pushNibble(unsigned char data, unsigned char control);     //Prototype function that pushes 1 nibble onto the data pins and pulses the enable pin.
 void commandWrite(unsigned char command);       //Prototype function that writes one byte of command by calling the pushNibble function.
 void dataWrite(unsigned char data);     //Prototype function to write one byte of data by calling the pushNibble function.

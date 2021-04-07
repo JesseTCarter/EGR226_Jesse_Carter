@@ -307,13 +307,13 @@ void SysTick_init(void)
 
 {
 
-    SysTick-> CTRL = 0;     //Disable SysTick during step.
+    SysTick -> CTRL = 0;     //Disable SysTick during step.
 
-    SysTick-> LOAD = 0x00FFFFFF;        //Max reload value.
+    SysTick -> LOAD = 0x00FFFFFF;        //Max reload value.
 
-    SysTick-> VAL = 0;      //Any write to CVR clears it.
+    SysTick -> VAL = 0;      //Any write to CVR clears it.
 
-    SysTick-> CTRL = 0x00000005;        //Enable SysTick, 3MHz, no interrupts.
+    SysTick -> CTRL = 0x00000005;        //Enable SysTick, 3MHz, no interrupts.
 
 }
 
@@ -333,10 +333,10 @@ void SysTick_delay(uint16_t delay)
 
 {
 
-    SysTick-> LOAD = ((delay * 3000) - 1);      //Delay of 1ms per delay value.
+    SysTick -> LOAD = ((delay * 3000) - 1);      //Delay of 1ms per delay value.
 
-    SysTick-> VAL = 0;      //Any write to CVR clears it.
+    SysTick -> VAL = 0;      //Any write to CVR clears it.
 
-    while((SysTick-> CTRL & 0x00010000) == 0);      //Wait for flag to be SET.
+    while((SysTick -> CTRL & 0x00010000) == 0);      //Wait for flag to be SET.
 
 }

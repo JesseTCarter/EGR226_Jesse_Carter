@@ -42,10 +42,6 @@ void main(void)
 
     int timeoff;
 
-    timeon = 25 * i * .01;
-
-    timeoff = 25 - timeon;
-
     while(1)
 
     {
@@ -57,6 +53,10 @@ void main(void)
         P2OUT &= ~BIT4;     //Turns motor off.
 
         SysTick_delay(timeoff);
+
+        timeon = 25 * i * .01;
+
+        timeoff = 25 - timeon;
 
 
     }

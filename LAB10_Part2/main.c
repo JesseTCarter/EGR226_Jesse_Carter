@@ -41,11 +41,11 @@ void main(void)
 
     {
 
-        ADC14 -> CTL0 |= 1;       //Starts a conversion.
+        ADC14->CTL0 |= 1;       //Starts a conversion.
 
-        while(!ADC14 -> IFGR0);       //Will wait until conversion is completed.
+        while(!ADC14->IFGR0);       //Will wait until conversion is completed.
 
-        result = ADC14 -> MEM[0];     //Immediately stores the value into a variable.
+        result = ADC14->MEM[0];     //Immediately stores the value into a variable.
 
         volt = (result * 3.3) / 16384;
 
